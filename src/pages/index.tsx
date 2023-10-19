@@ -1,15 +1,20 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import Layout from '@/components/Layout'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
+
     <div className={`
-      flex justify-center items-center h-screen 
-      bg-gradient-to-r from-purple-500 via-yellow-200 to-blue-600
+    flex justify-center items-center h-screen 
+    bg-gradient-to-l to-blue-500 from-purple-500  
+    text-white 
     `}>
-      <span className='text-4xl'>TEXTO</span>
+      <Layout title='Cadastro Simples'>
+        <span>Conteúdo</span>
+      </Layout>
     </div>
   )
 }
