@@ -1,10 +1,19 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Layout from '@/components/Layout'
+import Client from '@/core/Client'
+import Table from '@/components/Table'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const mockClients = [
+    new Client('Ana', 34, '1'),
+    new Client('Bia', 45, '2'),
+    new Client('Carlod', 23, '3'),
+    new Client('Pedro', 54, '4'),
+  ]
+
   return (
 
     <div className={`
@@ -13,7 +22,7 @@ export default function Home() {
     text-white 
     `}>
       <Layout title='Cadastro Simples'>
-        <span>Conteúdo</span>
+        <Table clients={mockClients} />
       </Layout>
     </div>
   )
