@@ -3,7 +3,7 @@ export default class Client {
   #name: string;
   #age: number;
 
-  constructor(name: string, age: number, id = null) {
+  constructor(name: string, age: number, id: string| null = null) {
     this.#id = id;
     this.#name = name;
     this.#age = age;
