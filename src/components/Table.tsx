@@ -3,10 +3,14 @@ import { IconEdit, IconTrash } from "./Icons"
 
 interface TableProps {
   clients: Client[]
+  selectedClient?: (client: Client) => void
+  delectedClient?: (client: Client) => void
 }
 
 
 export default function Table(props: TableProps) {
+
+  const isShowActive = props.selectedClient || props.delectedClient
 
   const renderHeader = () => {
     return (
@@ -14,7 +18,9 @@ export default function Table(props: TableProps) {
         <th className="text-left p-4">Código</th>
         <th className="text-left p-4">Nome</th>
         <th className="text-left p-4">Idade</th>
-        <th className="p-4">Ação</th>
+        {isShowActive &&
+          <th className="p-4">Ação</th>
+        }
       </tr>
     )
   }
@@ -22,18 +28,27 @@ export default function Table(props: TableProps) {
   const renderActions = (client: Client) => {
     return (
       <td className="flex justify-center items-center">
-        <button className={`
-        text-green-600 p-2 m-1 rounded-full
-        hover:bg-purple-50
-        `}>
-          {IconEdit}
-        </button>
-        <button className={`
-        text-red-500 p-2 m-1 rounded-full
-        hover:bg-purple-50
-        `}>
-          {IconTrash}
-        </button>
+        {props.selectedClient &&
+          <button
+            onClick={() => props.selectedClient?.(client)}
+            className={`
+            text-green-600 p-2 m-1 rounded-full
+            hover:bg-purple-50
+            `}>
+            {IconEdit}
+          </button>
+        }
+        {props.delectedClient &&
+          <button
+            onClick={() => props.delectedClient?.(client)}
+            className={`
+            text-red-500 p-2 m-1 rounded-full
+            hover:bg-purple-50
+            `}>
+            {IconTrash}
+          </button>
+        }
+
       </td>
     )
   }
@@ -47,7 +62,7 @@ export default function Table(props: TableProps) {
           <td className="text-left p-4">{client.id}</td>
           <td className="text-left p-4">{client.name}</td>
           <td className="text-left p-4">{client.age}</td>
-          {renderActions(client)}
+          {isShowActive && renderActions(client)}
         </tr>
       )
     })
@@ -57,7 +72,7 @@ export default function Table(props: TableProps) {
   return (
     <table className="w-full rounded-xl overflow-hidden">
       <thead className={`
-        text-gray-100
+        text-gray-100 
         bg-gradient-to-l to-purple-500 from-purple-800
       `}>
         {renderHeader()}

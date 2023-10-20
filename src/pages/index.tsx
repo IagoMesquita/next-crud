@@ -14,15 +14,25 @@ export default function Home() {
     new Client('Pedro', 54, '4'),
   ]
 
-  return (
+  const selectedClient = (client: Client) => {
+    console.log(client.name)
+  }
 
+  const delectedClient = (client: Client) => {
+    console.log(`Excluir ${client.name}`)
+  }
+  return (
     <div className={`
     flex justify-center items-center h-screen 
     bg-gradient-to-l to-blue-500 from-purple-500  
     text-white 
     `}>
       <Layout title='Cadastro Simples'>
-        <Table clients={mockClients} />
+        <Table
+          clients={mockClients}
+          selectedClient={selectedClient}
+          delectedClient={delectedClient}
+        />
       </Layout>
     </div>
   )
