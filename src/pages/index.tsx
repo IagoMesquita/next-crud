@@ -3,6 +3,7 @@ import Layout from '@/components/Layout'
 import Client from '@/core/Client'
 import Table from '@/components/Table'
 import Button from '@/components/Button'
+import Form from '@/components/Form'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -39,6 +40,7 @@ export default function Home() {
           selectedClient={selectedClient}
           delectedClient={delectedClient}
         />
+        <Form client={mockClients[2]}/>
       </Layout>
     </div>
   )
