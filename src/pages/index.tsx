@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google'
 import Layout from '@/components/Layout'
 import Client from '@/core/Client'
 import Table from '@/components/Table'
+import Button from '@/components/Button'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,6 +29,11 @@ export default function Home() {
     text-white 
     `}>
       <Layout title='Cadastro Simples'>
+        <div className='flex justify-end'>
+          <Button color='green' className='mb-4'>
+            Novo Cliente
+          </Button>
+        </div>
         <Table
           clients={mockClients}
           selectedClient={selectedClient}
