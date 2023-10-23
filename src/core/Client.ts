@@ -9,7 +9,7 @@ export default class Client {
     this.#age = age;
   }
 
-  static clientEmpty() {
+  static empty() {
     return new Client('', 0);
   }
 
