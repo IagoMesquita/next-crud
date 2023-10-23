@@ -24,21 +24,20 @@ export default class ClientCollection implements ClientRepository {
 
 
   async save(client: Client): Promise<Client> {
-
+    return
   }
 
   async delete(client: Client): Promise<void> {
-    
+    return this.#clientsCollection().doc
   }
 
   async getAll(client: Client): Promise<Client[]> {
     
   }
 
-  #collection() {
+  #clientsCollection() {
     return  firebase.firestore()
     .collection('clients')
     .withConverter(this.#clientConverter)
-    .doc().get();
   }
 }
