@@ -24,15 +24,24 @@ export default class ClientCollection implements ClientRepository {
 
 
   async save(client: Client): Promise<Client> {
-    return
+    if(client?.id){
+      await this.#clientsCollection().doc(client.id).set(client)
+      return client
+    } else {
+     const docRef = await this.#clientsCollection().add(client)
+     const doc = await docRef.get()
+
+     return doc.data()!
+    }
   }
 
   async delete(client: Client): Promise<void> {
-    return this.#clientsCollection().doc
+    return this.#clientsCollection().doc(client.id!).delete()
   }
 
   async getAll(client: Client): Promise<Client[]> {
-    
+    const querySnapshot = await this.#clientsCollection().get()
+    return querySnapshot.docs.map((doc) => doc.data()) ?? []
   }
 
   #clientsCollection() {
