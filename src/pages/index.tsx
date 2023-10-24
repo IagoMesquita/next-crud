@@ -5,10 +5,14 @@ import Table from '@/components/Table'
 import Button from '@/components/Button'
 import Form from '@/components/Form'
 import { useState } from 'react'
+import { ClientRepository } from '@/core/ClientRepository'
+import ClientCollection from '@/backend/db/ClientCollection'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const repoClients: ClientRepository = new ClientCollection()
 
   const mockClients = [
     new Client('Ana', 34, '1'),
