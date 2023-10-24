@@ -4,7 +4,7 @@ import Client from '@/core/Client'
 import Table from '@/components/Table'
 import Button from '@/components/Button'
 import Form from '@/components/Form'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ClientRepository } from '@/core/ClientRepository'
 import ClientCollection from '@/backend/db/ClientCollection'
 
@@ -14,25 +14,39 @@ export default function Home() {
 
   const repoClients: ClientRepository = new ClientCollection()
 
-  const mockClients = [
-    new Client('Ana', 34, '1'),
-    new Client('Bia', 45, '2'),
-    new Client('Carlod', 23, '3'),
-    new Client('Pedro', 54, '4'),
-  ]
-
-  const [isVisible, setIsVisible] = useState<'table' | 'form'>('table')
+  const [clients, setClients] = useState<Client[]>([])
   const [client, setClient] = useState<Client>(Client.empty)
+  const [isVisible, setIsVisible] = useState<'table' | 'form'>('table')
 
+  // useEffect(() => {
+  //   repoClients.getAll().then(setClients)
+  //   console.log(clients)
+  // }, [])
+  
+  useEffect(getClients, [])
+
+  function getClients() {
+    repoClients.getAll().then((clients) => {
+      setClients(clients)
+      setIsVisible('table')
+    });
+  }
+
+  const saveClient = async (client: Client) => {
+    await repoClients.save(client)
+    getClients()
+  }
+
+  const delectedClient = async (client: Client) => {
+    await repoClients.delete(client)
+    getClients()
+  }
 
   const selectedClient = (client: Client) => {
     setClient(client)
     setIsVisible('form')
   }
 
-  const delectedClient = (client: Client) => {
-    console.log(`Excluir ${client.name}`)
-  }
 
   const newClient = () => {
     setClient(Client.empty())
@@ -40,9 +54,7 @@ export default function Home() {
   }
 
 
-  const saveClient = (client: Client) => {
-    console.log("Client", client)
-  }
+
 
   return (
     <div className={`
@@ -63,7 +75,7 @@ export default function Home() {
               </Button>
             </div>
             <Table
-              clients={mockClients}
+              clients={clients}
               selectedClient={selectedClient}
               delectedClient={delectedClient}
             />
